@@ -1,4 +1,4 @@
-from http.client import responses
+from utils.config_loader import load_config
 import requests
 import yaml
 import os
@@ -6,10 +6,7 @@ import os
 
 class APIClient:
     def __init__(self):
-        config_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'config.yaml')
-        with open(config_path, 'r') as file:
-            config = yaml.safe_load(file)
-
+        config = load_config()
         self.base_url = config['base_url']
         self.headers = config.get('headers', {})
         self.timeout = config.get('timeout', 0)

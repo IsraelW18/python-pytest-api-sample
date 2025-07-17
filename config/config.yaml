@@ -1,0 +1,7 @@
+# Base configuration for API tests
+base_url: "https://jsonplaceholder.typicode.com"
+
+headers:
+  Content-Type: "application/json"
+
+timeout: 10  # seconds

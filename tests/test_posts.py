@@ -1,12 +1,12 @@
 # tests/test_posts.py
-from http.client import responses
 from tests.conftest import logger
 import pytest
 
 class TestPostsAPI:
 
-    def test_get_all_posts(self, api_client):
+    def test_get_all_posts(self, api_client, logger):
         response = api_client.get(endpoint="posts")
+        logger.info("'get all posts' request run")
         assert response.status_code == 200
         data = response.json()
         assert isinstance(data, list)
@@ -17,7 +17,7 @@ class TestPostsAPI:
         (10, "title"),
     ])
     def test_get_single_post(self, api_client, post_id, expected_key):
-        response = api_client.get((f"posts/{post_id}"))
+        response = api_client.get(endpoint=f"posts/{post_id}")
         assert response.status_code == 200
         data = response.json()
         assert isinstance(data, dict)
@@ -46,7 +46,10 @@ class TestPostsAPI:
 
     def test_delete_post(self, api_client):
         response = api_client.delete(endpoint="post/1")
-        assert response.status_code in [200, 204]
+        if response.text:
+            assert response.status_code == 200, f"Expected 200 with content, got {response.status_code}"
+        else:
+            assert response.status_code == 204, f"Expected 204 with no content, got {response.status_code}"
 
 
 

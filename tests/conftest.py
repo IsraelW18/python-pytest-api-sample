@@ -18,9 +18,9 @@ class ColorFormatter(logging.Formatter):
     COLORS = {
         'DEBUG': '\033[94m',    # blue
         'INFO': '\033[92m',     # green
-        'WARNING': '\033[93',   # yello
-        'ERROR': '\033[91',     # red
-        'CRITICAL': '\033[95'   # magenta
+        'WARNING': '\033[93m',   # yello
+        'ERROR': '\033[91m',     # red
+        'CRITICAL': '\033[95m'   # magenta
     }
     RESET = '\033[0m'
 

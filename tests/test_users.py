@@ -1,10 +1,9 @@
 # tests/test_users
-from itertools import count
-
 import pytest
 
 class TestUsersAPI:
 
+    @pytest.mark.integration
     def test_get_all_users(self, api_client, logger):
         logger.info("Running Test: get all users")
         response = api_client.get("users")
@@ -45,3 +44,72 @@ class TestUsersAPI:
             assert isinstance(company["name"], str)
             assert company["catchPhrase"] != ''
             assert isinstance(company["bs"], str)
+
+    @pytest.mark.parametrize("user_id, expected_key", [
+        (1, "name"),
+        (5, "email"),
+        (8, "username"),
+    ])
+    def test_get_single_user(self, api_client, logger, user_id, expected_key):
+        logger.info(f"Running test: get single user 'user_id' = {user_id}")
+        response = api_client.get(f"users/{user_id}")
+        assert response.status_code == 200
+
+        data = response.json()
+        assert isinstance(data, dict)
+        assert expected_key in data
+        assert isinstance(data[expected_key], str)
+
+    def test_create_user(self, api_client, logger):
+        logger.info("Running test: create user")
+        payload = {
+            "name": "QA User",
+            "username": "qauser",
+            "email": "qauser@example.com",
+            "phone": "123-456-7890",
+            "website": "qauser.com"
+        }
+        response = api_client.post("users", data=payload)
+        assert response.status_code == 201
+
+        data = response.json()
+        for key in payload:
+            assert key in data.keys()
+            assert data[key] == payload[key]
+
+    def test_update_user_put(self, api_client, logger):
+        logger.info("Running test: update user 'put'")
+        payload = {
+            "id": 1,
+            "name": "QA Updated User",
+            "username": "qa_updateduser",
+            "email": "qa_updated@example.com",
+            "phone": "999-999-9999",
+            "website": "qa_updatedsite.com"
+        }
+        response = api_client.put("users/1", data=payload)
+        assert response.status_code == 200
+        data = response.json()
+        assert all(data.get(k) == v for k, v in payload.items())
+
+    def test_update_user_patch(self, api_client, logger):
+        logger.info("Running test: update user 'patch'")
+        payload = {
+            "email": "qa_patched@example.com"
+        }
+        response = api_client.patch("users/1", data=payload)
+        assert response.status_code == 200
+
+        data = response.json()
+        assert "email" in data
+        assert data["email"] == "qa_patched@example.com"
+
+    def test_delete_user(self,api_client, logger):
+        logger.info("Running test: delete user")
+        response = api_client.delete("users/1")
+        if response.text:
+            assert response.status_code == 200
+
+        else:
+            assert response.status_code == 204
+

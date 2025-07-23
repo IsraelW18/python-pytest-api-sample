@@ -47,7 +47,7 @@ class TestPostsAPI:
     def test_delete_post(self, api_client):
         response = api_client.delete(endpoint="post/1")
         if response.text:
-            assert response.status_code == 200, f"Expected 200 with content, got {response.status_code}"
+            assert response.status_code == 404, f"Expected 200 with content, got {response.status_code}"
         else:
             assert response.status_code == 204, f"Expected 204 with no content, got {response.status_code}"
 

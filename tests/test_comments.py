@@ -53,7 +53,7 @@ class TestCommentsAPI:
         assert body == "QA Update comment body"
 
     def test_delete_comment(self, api_client, logger):
-        logger.error("running test: test_delete_comment")
+        logger.info("running test: test_delete_comment")
         response = api_client.delete(endpoint="comments/1")
         if response.text:
             assert response.status_code == 200

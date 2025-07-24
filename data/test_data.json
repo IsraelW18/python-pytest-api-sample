@@ -1,0 +1,179 @@
+{
+  "users": {
+    "valid_user": {
+      "name": "Test User",
+      "username": "testuser",
+      "email": "test@example.com",
+      "phone": "123-456-7890",
+      "website": "https://testuser.com",
+      "address": {
+        "street": "123 Test Street",
+        "suite": "Apt 1",
+        "city": "Test City",
+        "zipcode": "12345",
+        "geo": {
+          "lat": "40.7128",
+          "lng": "-74.0060"
+        }
+      },
+      "company": {
+        "name": "Test Company",
+        "catchPhrase": "Testing is everything",
+        "bs": "quality assurance solutions"
+      }
+    },
+    "minimal_user": {
+      "name": "Minimal User",
+      "username": "minimal",
+      "email": "minimal@test.com"
+    },
+    "invalid_users": {
+      "missing_email": {
+        "name": "No Email User",
+        "username": "noemail"
+      },
+      "invalid_email": {
+        "name": "Invalid Email User",
+        "username": "invalidemail",
+        "email": "not-an-email"
+      },
+      "empty_name": {
+        "name": "",
+        "username": "emptyname",
+        "email": "empty@test.com"
+      }
+    }
+  },
+  "posts": {
+    "valid_post": {
+      "title": "Test Post Title",
+      "body": "This is a test post body with meaningful content for testing purposes.",
+      "userId": 1
+    },
+    "minimal_post": {
+      "title": "Minimal Post",
+      "body": "Short body"
+    },
+    "long_post": {
+      "title": "Post with Very Long Content",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "userId": 1
+    },
+    "invalid_posts": {
+      "empty_title_and_body": {
+        "title": "",
+        "body": "",
+        "userId": 1
+      },
+      "missing_user_id": {
+        "title": "Post without User ID",
+        "body": "This post has no user ID"
+      }
+    }
+  },
+  "comments": {
+    "valid_comment": {
+      "postId": 1,
+      "name": "Test Commenter",
+      "email": "commenter@test.com",
+      "body": "This is a test comment with meaningful content."
+    },
+    "minimal_comment": {
+      "postId": 1,
+      "name": "Minimal",
+      "email": "min@test.com",
+      "body": "Short comment"
+    },
+    "long_comment": {
+      "postId": 1,
+      "name": "Verbose Commenter",
+      "email": "verbose@test.com",
+      "body": "This is a very long comment that tests the system's ability to handle extensive text input. It contains multiple sentences and covers various aspects of the topic being discussed. The comment should be comprehensive enough to validate the system's text processing capabilities while remaining within reasonable limits for typical user-generated content."
+    },
+    "invalid_comments": {
+      "missing_body": {
+        "postId": 1,
+        "name": "No Body",
+        "email": "nobody@test.com"
+      },
+      "invalid_email": {
+        "postId": 1,
+        "name": "Invalid Email",
+        "email": "not-an-email",
+        "body": "Comment with invalid email"
+      },
+      "missing_post_id": {
+        "name": "No Post ID",
+        "email": "nopost@test.com",
+        "body": "Comment without post ID"
+      }
+    }
+  },
+  "test_scenarios": {
+    "pagination": {
+      "page_size": 10,
+      "max_pages": 5
+    },
+    "performance": {
+      "max_response_time": 2.0,
+      "concurrent_requests": 5
+    },
+    "edge_cases": {
+      "large_ids": [999999, 1000000],
+      "negative_ids": [-1, -100],
+      "zero_id": 0,
+      "string_ids": ["abc", "123abc", ""]
+    },
+    "filtering": {
+      "user_filters": {
+        "by_username": "Bret",
+        "by_email": "Sincere@april.biz"
+      },
+      "post_filters": {
+        "by_user_id": 1,
+        "by_title_keyword": "qui"
+      },
+      "comment_filters": {
+        "by_post_id": 1,
+        "by_email": "Eliseo@gardner.biz"
+      }
+    }
+  },
+  "validation_rules": {
+    "user": {
+      "required_fields": ["id", "name", "username", "email"],
+      "optional_fields": ["address", "phone", "website", "company"],
+      "email_pattern": "^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$",
+      "phone_min_length": 10
+    },
+    "post": {
+      "required_fields": ["id", "userId", "title", "body"],
+      "title_max_length": 255,
+      "body_max_length": 5000
+    },
+    "comment": {
+      "required_fields": ["id", "postId", "name", "email", "body"],
+      "body_max_length": 1000,
+      "email_pattern": "^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$"
+    }
+  },
+  "expected_counts": {
+    "total_users": 10,
+    "total_posts": 100,
+    "total_comments": 500,
+    "posts_per_user": 10,
+    "comments_per_post": 5
+  },
+  "error_scenarios": {
+    "not_found": {
+      "user_id": 999999,
+      "post_id": 999999,
+      "comment_id": 999999
+    },
+    "malformed_requests": {
+      "invalid_json": "{ invalid json }",
+      "missing_content_type": true,
+      "empty_payload": {}
+    }
+  }
+}

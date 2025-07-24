@@ -1,1 +1,0 @@
-[00:48:25] [92mINFO[0m - Running test: create user

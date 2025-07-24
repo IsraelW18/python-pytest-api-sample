@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.testing.framework/schemas/user.json",
+  "title": "User",
+  "description": "Schema for validating user objects from JSONPlaceholder API",
+  "type": "object",
+  "required": ["id", "name", "username", "email"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Unique identifier for the user"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Full name of the user"
+    },
+    "username": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "pattern": "^[a-zA-Z0-9._-]+$",
+      "description": "Unique username for the user"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "maxLength": 100,
+      "description": "Email address of the user"
+    },
+    "address": {
+      "type": "object",
+      "description": "User's address information",
+      "required": ["street", "suite", "city", "zipcode", "geo"],
+      "properties": {
+        "street": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Street address"
+        },
+        "suite": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50,
+          "description": "Suite or apartment number"
+        },
+        "city": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50,
+          "description": "City name"
+        },
+        "zipcode": {
+          "type": "string",
+          "pattern": "^[0-9]{5}(-[0-9]{4})?$",
+          "description": "ZIP or postal code"
+        },
+        "geo": {
+          "type": "object",
+          "description": "Geographic coordinates",
+          "required": ["lat", "lng"],
+          "properties": {
+            "lat": {
+              "type": "string",
+              "pattern": "^-?\\d+\\.\\d+$",
+              "description": "Latitude coordinate"
+            },
+            "lng": {
+              "type": "string",
+              "pattern": "^-?\\d+\\.\\d+$",
+              "description": "Longitude coordinate"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "phone": {
+      "type": "string",
+      "pattern": "^[0-9\\-\\s\\(\\)\\.\\+x]+$",
+      "minLength": 10,
+      "maxLength": 20,
+      "description": "Phone number of the user"
+    },
+    "website": {
+      "type": "string",
+      "format": "uri",
+      "maxLength": 100,
+      "description": "Website URL of the user"
+    },
+    "company": {
+      "type": "object",
+      "description": "User's company information",
+      "required": ["name", "catchPhrase", "bs"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Company name"
+        },
+        "catchPhrase": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Company catch phrase"
+        },
+        "bs": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Company business description"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+} 

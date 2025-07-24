@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.testing.framework/schemas/post.json",
+  "title": "Post",
+  "description": "Schema for validating post objects from JSONPlaceholder API",
+  "type": "object",
+  "required": ["id", "userId", "title", "body"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Unique identifier for the post"
+    },
+    "userId": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "ID of the user who created the post"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "description": "Title of the post"
+    },
+    "body": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 5000,
+      "description": "Content body of the post"
+    }
+  },
+  "additionalProperties": false
+}

@@ -4,6 +4,10 @@ import pytest
 
 class TestPostsAPI:
 
+    @pytest.mark.get
+    @pytest.mark.posts
+    @pytest.mark.positive
+    @pytest.mark.integration
     def test_get_all_posts(self, api_client, logger):
         response = api_client.get(endpoint="posts")
         logger.info("'get all posts' request run")
@@ -12,6 +16,10 @@ class TestPostsAPI:
         assert isinstance(data, list)
         assert len(data) >= 100
 
+    @pytest.mark.get
+    @pytest.mark.posts
+    @pytest.mark.positive
+    @pytest.mark.integration
     @pytest.mark.parametrize("post_id, expected_key", [
         (1, "title"),
         (10, "title"),
@@ -23,6 +31,11 @@ class TestPostsAPI:
         assert isinstance(data, dict)
         assert expected_key in data
 
+    @pytest.mark.post
+    @pytest.mark.posts
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_create_post(self, api_client):
         payload = {
             "title": "qa title",
@@ -35,6 +48,11 @@ class TestPostsAPI:
         assert data["title"] == "qa title"
         assert data["body"] == "qa body"
 
+    @pytest.mark.patch
+    @pytest.mark.posts
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_update_post(self, api_client):
         payload = {
             "title": "qa updated title"
@@ -44,6 +62,11 @@ class TestPostsAPI:
         data = response.json()
         assert data["title"] == "qa updated title"
 
+    @pytest.mark.delete
+    @pytest.mark.posts
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_delete_post(self, api_client):
         response = api_client.delete(endpoint="posts/1")
         if response.text:

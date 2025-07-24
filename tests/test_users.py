@@ -3,6 +3,9 @@ import pytest
 
 class TestUsersAPI:
 
+    @pytest.mark.get
+    @pytest.mark.users
+    @pytest.mark.positive
     @pytest.mark.integration
     def test_get_all_users(self, api_client, logger):
         logger.info("Running Test: get all users")
@@ -45,6 +48,10 @@ class TestUsersAPI:
             assert company["catchPhrase"] != ''
             assert isinstance(company["bs"], str)
 
+    @pytest.mark.get
+    @pytest.mark.users
+    @pytest.mark.positive
+    @pytest.mark.integration
     @pytest.mark.parametrize("user_id, expected_key", [
         (1, "name"),
         (5, "email"),
@@ -60,6 +67,11 @@ class TestUsersAPI:
         assert expected_key in data
         assert isinstance(data[expected_key], str)
 
+    @pytest.mark.post
+    @pytest.mark.users
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_create_user(self, api_client, logger):
         logger.info("Running test: create user")
         payload = {
@@ -77,6 +89,11 @@ class TestUsersAPI:
             assert key in data.keys()
             assert data[key] == payload[key]
 
+    @pytest.mark.put
+    @pytest.mark.users
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_update_user_put(self, api_client, logger):
         logger.info("Running test: update user 'put'")
         payload = {
@@ -92,6 +109,11 @@ class TestUsersAPI:
         data = response.json()
         assert all(data.get(k) == v for k, v in payload.items())
 
+    @pytest.mark.patch
+    @pytest.mark.users
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_update_user_patch(self, api_client, logger):
         logger.info("Running test: update user 'patch'")
         payload = {
@@ -104,6 +126,11 @@ class TestUsersAPI:
         assert "email" in data
         assert data["email"] == "qa_patched@example.com"
 
+    @pytest.mark.delete
+    @pytest.mark.users
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_delete_user(self,api_client, logger):
         logger.info("Running test: delete user")
         response = api_client.delete("users/1")

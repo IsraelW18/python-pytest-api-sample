@@ -3,6 +3,10 @@ import pytest
 
 class TestCommentsAPI:
 
+    @pytest.mark.get
+    @pytest.mark.comments
+    @pytest.mark.positive
+    @pytest.mark.integration
     def test_get_all_comments(self, api_client, logger):
         logger.info("running test: get all comments")
         response = api_client.get(endpoint="comments")
@@ -12,6 +16,10 @@ class TestCommentsAPI:
         assert isinstance(data, list)
         assert len(data) > 0
 
+    @pytest.mark.get
+    @pytest.mark.comments
+    @pytest.mark.positive
+    @pytest.mark.integration
     @pytest.mark.parametrize("comment_id, expected_key", [
         (1, "email"),
         (50, "name"),
@@ -25,6 +33,11 @@ class TestCommentsAPI:
         assert isinstance(data, dict)
         assert expected_key in data
 
+    @pytest.mark.post
+    @pytest.mark.comments
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_create_comment(self, api_client, logger):
         logger.info("running test: test_create_comment")
         payload = {
@@ -40,6 +53,11 @@ class TestCommentsAPI:
         for key, value in payload.items():
             assert data[key] == value, logger.info(f"Assertion Error: response value '{data[key]}' != {value}")
 
+    @pytest.mark.patch
+    @pytest.mark.comments
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_update_comment(self, api_client, logger):
         logger.info("running test: test_update_comment")
         payload = {
@@ -52,6 +70,11 @@ class TestCommentsAPI:
         body = data["body"]
         assert body == "QA Update comment body"
 
+    @pytest.mark.delete
+    @pytest.mark.comments
+    @pytest.mark.positive
+    @pytest.mark.integration
+    @pytest.mark.regression
     def test_delete_comment(self, api_client, logger):
         logger.info("running test: test_delete_comment")
         response = api_client.delete(endpoint="comments/1")
